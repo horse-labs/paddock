@@ -2,6 +2,8 @@
 
 **The git-native memory bank + roadmap for AI-assisted teams — evidence-linked, multi-repo, with delivery guardrails.**
 
+🌐 **[horse-labs.github.io/paddock](https://horse-labs.github.io/paddock/)** — what it is, how to use it, why adopt it (EN/pt).
+
 > Um paddock é o cercado onde o cavalo é preparado antes de correr. Aqui é onde o **projeto** é
 > preparado e governado: a memória viva, o status canônico e o ritual que mantêm humano + IA no mesmo
 > mapa — versionado no git, ligado ao código por evidência.
