@@ -1,10 +1,23 @@
 # 🐴 Paddock
 
-**Git-native memory & roadmap for AI-assisted teams.**
+**The git-native memory bank + roadmap for AI-assisted teams — evidence-linked, multi-repo, with delivery guardrails.**
 
 > Um paddock é o cercado onde o cavalo é preparado antes de correr. Aqui é onde o **projeto** é
 > preparado e governado: a memória viva, o status canônico e o ritual que mantêm humano + IA no mesmo
 > mapa — versionado no git, ligado ao código por evidência.
+
+### Memory bank — e além
+A categoria já tem nome: **memory bank** (markdown no repo, alimentado ao agente a cada sessão pra
+restaurar contexto). Paddock **é** isso no core — mas vai **além** do memory bank típico (que só restaura
+contexto, geralmente num repo só). Ele adiciona a camada de **governança de engenharia**:
+- **Roadmap/status com evidência ligada ao código** — não só "o que o projeto é", mas **o que está feito /
+  pendente**, cada item linkado a PR/commit/ADR. (memory bank vira *fonte de verdade do progresso*.)
+- **Disciplina de entrega** — ritual de sessão + **DoR/DoD** + git stance (não só contexto: **processo**).
+- **Workspace multi-repo + refinaria** — vários repos + `_knowledge/` bruto destilado em estrutura (a maioria
+  dos memory banks é single-repo e só-contexto).
+- **Cross-agent** — `AGENTS.md` (Copilot/Cursor/Codex/Claude), não amarrado a uma ferramenta.
+
+Em uma linha: **memory bank que também é roadmap + governança, com evidência até o código.**
 
 Paddock é um **template de repositório** (não um produto, não uma dependência pesada). Você clica em
 *"Use this template"*, preenche o esqueleto, e ganha:
