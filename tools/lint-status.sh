@@ -18,6 +18,10 @@ VIOL=$(awk -F'|' '
     noev   = (ev=="" || ev=="—" || ev=="-")
     if (isdone && noev)
       printf "  ✗ [%s] %s sem evidência (regra evidência-ou-nada)\n", st, id
+    # DoD: evidência deve ser um REF real (PR #, URL, .md/ADR, ou SHA), não texto solto
+    reflike = (ev ~ /#[0-9]/ || ev ~ /https?:\/\// || ev ~ /\.md/ || ev ~ /[0-9a-f]{7,}/ || ev ~ /ADR/)
+    if (isdone && !noev && !reflike)
+      printf "  ✗ [%s] %s evidência não parece link/ref (\"%s\") — use PR#/URL/ADR/commit\n", st, id, ev
     if (st=="✅" && note ~ /falta|pendente|TODO|to-?do/)
       printf "  ✗ [✅] %s marcado feito mas a nota diz pendência: \"%s\"\n", id, note
     if (st=="❌" && !noev)
