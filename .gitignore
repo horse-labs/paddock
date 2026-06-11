@@ -1,0 +1,8 @@
+# OS / editor
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/
+# backups do sed
+*.bak
