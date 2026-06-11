@@ -1,6 +1,30 @@
-# 🐴 Paddock
+<p align="center">
+  <a href="https://horse-labs.github.io/paddock/"><img src=".github/assets/social-preview.png" alt="Paddock — the git-native memory bank + roadmap for AI-assisted teams, by HorseLabs" width="100%"></a>
+</p>
 
-**The git-native memory bank + roadmap for AI-assisted teams — evidence-linked, multi-repo, with delivery guardrails.**
+<h1 align="center">🐴 Paddock</h1>
+
+<p align="center"><strong>The git-native memory bank + roadmap for AI-assisted teams — evidence-linked, multi-repo, with delivery guardrails.</strong></p>
+
+<p align="center">
+  <a href="https://github.com/horse-labs/paddock/actions/workflows/ci.yml"><img src="https://github.com/horse-labs/paddock/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/horse-labs/paddock?color=8B0F14" alt="License: Apache-2.0"></a>
+  <a href="https://github.com/horse-labs/paddock/releases"><img src="https://img.shields.io/github/v/release/horse-labs/paddock?color=8B0F14" alt="Release"></a>
+  <a href="https://github.com/horse-labs/paddock/generate"><img src="https://img.shields.io/badge/use%20this-template-8B0F14" alt="Use this template"></a>
+  <a href="https://horse-labs.github.io/paddock/"><img src="https://img.shields.io/badge/docs-landing-0B0B0D" alt="Docs"></a>
+  <img src="https://img.shields.io/badge/dependencies-zero-3E8E5A" alt="Zero dependencies">
+</p>
+
+<p align="center">
+  <a href="https://horse-labs.github.io/paddock/">Landing</a> ·
+  <a href="FRAMEWORK.md">Framework</a> ·
+  <a href="docs/getting-started.md">Get started</a> ·
+  <a href="CHANGELOG.md">Changelog</a> ·
+  <a href="CONTRIBUTING.md">Contributing</a> ·
+  <a href="SECURITY.md">Security</a>
+</p>
+
+---
 
 🌐 **[horse-labs.github.io/paddock](https://horse-labs.github.io/paddock/)** — what it is, how to use it, why adopt it (EN/pt).
 
