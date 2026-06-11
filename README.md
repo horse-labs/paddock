@@ -76,4 +76,8 @@ Ver [`docs/tooling.md`](docs/tooling.md).
 | `specs/ plans/ decisions/ audits/ product/` | memória estruturada (linkada pelo status) |
 
 ---
-_By [HorseLabs](https://github.com/horse-labs). Template privado em validação — feedback bem-vindo._
+## Licença
+[Apache-2.0](LICENSE) © HorseLabs. Use, adapte, compartilhe — atribuição via licença. Issues e feedback bem-vindos.
+
+---
+_By [HorseLabs](https://github.com/horse-labs) — `git-native memory & roadmap for AI-assisted teams`._
