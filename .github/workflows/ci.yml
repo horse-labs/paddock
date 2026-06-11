@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: ShellCheck (scripts)
+        run: shellcheck tools/*.sh setup.sh
+
+      - name: Lint status.md integrity
+        run: bash tools/lint-status.sh
+
+      - name: Report renders
+        run: bash tools/report.sh > /dev/null
+
+      - name: Link check (markdown + site)
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
+        with:
+          args: --no-progress --exclude-loopback '**/*.md' 'site/index.html'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

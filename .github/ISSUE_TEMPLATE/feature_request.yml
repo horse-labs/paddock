@@ -1,0 +1,24 @@
+name: Feature / improvement
+description: Suggest an improvement to the methodology, docs, or tooling
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem / use case
+      description: What's missing or awkward today?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Proposed change
+      description: Keep Paddock simple and zero-dependency — how does this fit?
+    validations:
+      required: true
+  - type: checkboxes
+    id: ethos
+    attributes:
+      label: Fit
+      options:
+        - label: This keeps the zero-dependency, simple, cross-OS ethos

@@ -1,0 +1,36 @@
+name: Bug report
+description: Something in the template, scripts, or docs isn't working
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for the report. Security issue? Use a private advisory instead — see SECURITY.md."
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what happened instead.
+      placeholder: "Ran `bash setup.sh ...` and ..."
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options: ["Linux", "macOS", "Windows (Git Bash)", "Windows (WSL)", "Other"]
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: bash / git versions
+      placeholder: "bash 5.2, git 2.45"
