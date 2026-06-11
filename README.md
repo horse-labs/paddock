@@ -24,6 +24,18 @@ Drive/Notion desatualizam e a IA não lê/escreve neles nativamente. Paddock põ
 diffável, revisável por PR, lida e escrita pelo agente, e amarrada ao código por evidência. É **governança
 do seu desenvolvimento**, leve.
 
+## Workspace (o modelo mental — leia antes)
+Paddock não é ilha: vive numa **raiz de trabalho** ao lado dos repos e do material bruto. O agente roda
+da raiz e cruza memória + código + matéria-prima de uma vez.
+```
+  ~/workspace/                 ← raiz; o agente roda daqui
+  ├── paddock/                 ← MEMÓRIA estruturada (este framework)
+  ├── repo-a/  repo-b/         ← repos de código do projeto
+  └── _knowledge/              ← INTAKE bruto: pdf, transcrições, drawio… (privado, não-versionado)
+```
+Paddock vira **refinaria**: destila o entulho de `_knowledge/` em estrutura (`specs/`/`decisions/`/`status.md`).
+Setup completo + ritual de ingest: **[`docs/workspace-setup.md`](docs/workspace-setup.md)**.
+
 ## Quickstart
 
 ```bash
@@ -50,7 +62,8 @@ Ver [`docs/tooling.md`](docs/tooling.md).
 ## Mapa
 | Caminho | O quê |
 |---|---|
-| [`FRAMEWORK.md`](FRAMEWORK.md) | o ritual de sessão + taxonomia de status + convenções |
+| [`docs/workspace-setup.md`](docs/workspace-setup.md) | ★ **leia primeiro** — topologia do workspace + ritual de ingest |
+| [`FRAMEWORK.md`](FRAMEWORK.md) | o ritual de sessão + DoR/DoD + git + taxonomia + convenções |
 | [`roadmap/status.md`](roadmap/status.md) | ★ status canônico (você preenche) |
 | [`roadmap/status-report-template.md`](roadmap/status-report-template.md) | molde do panorama visual |
 | [`docs/`](docs/) | manual (getting-started, convenções, ritual, tooling) |

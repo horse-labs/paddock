@@ -2,6 +2,9 @@
 
 Adotar o Paddock em ~10 minutos.
 
+> **Antes:** entenda a topologia do workspace (`~/workspace/` com paddock + repos + `_knowledge/`) em
+> [`workspace-setup.md`](workspace-setup.md). É o modelo mental que faz tudo funcionar.
+
 ## 1. Criar seu repo a partir do template
 - No GitHub: botão **"Use this template"** → `seu-org/seu-projeto-workbench` (privado).
 - Ou: `gh repo create seu-org/seu-projeto-workbench --private --template horse-labs/paddock`.
