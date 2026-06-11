@@ -53,6 +53,15 @@ O `setup.sh` gera um **`AGENTS.md`** na raiz (adapter lido por **GitHub Copilot,
 `CLAUDE.md` no Claude Code). Funciona com qualquer agente — o core é markdown+git.
 Setup completo + ritual de ingest + matriz de ferramentas: **[`docs/workspace-setup.md`](docs/workspace-setup.md)**.
 
+## Compartilhado pelo time
+A instância Paddock do seu projeto (o repo gerado do template, ou um fork) é **git** — então **toda a
+memória é compartilhada por todo o time**. Cada membro clona o mesmo repo e tem o **mesmo contexto**:
+decisões, roadmap, status, o porquê. Onboarding de um dev novo = `git clone` + ler `roadmap/status.md` —
+sem conhecimento tribal, sem "pergunta pro fulano". Atualiza igual código: `git pull` antes da sessão,
+**commit/PR** depois. Trabalho paralelo (vários devs/agentes) = branch/PR como em qualquer repo
+(ver `FRAMEWORK.md`). O contexto do projeto deixa de viver numa cabeça (ou na janela de um agente) e passa
+a viver no git, **versionado e visível pra todos**.
+
 ## Quickstart
 
 ```bash
