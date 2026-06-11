@@ -2,7 +2,7 @@
   <a href="https://horse-labs.github.io/paddock/"><img src=".github/assets/social-preview.png" alt="Paddock — the git-native memory bank + roadmap for AI-assisted teams, by HorseLabs" width="100%"></a>
 </p>
 
-<h1 align="center">🐴 Paddock</h1>
+<h1 align="center"><img src=".github/assets/brand-mark.svg" width="26" height="26" align="absmiddle" alt=""> Paddock</h1>
 
 <p align="center"><strong>The git-native memory bank + roadmap for AI-assisted teams — evidence-linked, multi-repo, with delivery guardrails.</strong></p>
 
