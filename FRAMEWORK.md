@@ -37,6 +37,16 @@ peso à fase do seu projeto.
 **Regra de ouro:** status nunca é checkbox solto. Todo ✅/🟡/🔵 tem **evidência** linkada (PR#, commit SHA,
 ADR, arquivo). Sem evidência → é alegação, não fato. O `tools/lint-status.sh` reprova linhas sem evidência.
 
+## Ritual de ingest (refinaria) — bruto → estruturado
+O Paddock vive numa raiz `~/workspace/` ao lado dos repos e de um dir `_knowledge/` (intake bruto: PDFs,
+transcrições, drawio…). Ver [`docs/workspace-setup.md`](docs/workspace-setup.md). Quando entra material novo:
+1. Cai em `_knowledge/` (reunião, doc, diagrama, export do Drive).
+2. Numa sessão, ler o bruto e **destilar**: decisão → `decisions/`; design → `specs/`; trabalho a fazer →
+   item(ns) no `roadmap/status.md` (com ID); contexto durável → onde couber.
+3. `_knowledge/` é **entrada**, não memória — pode ser podado depois. O que importa já virou estrutura linkada.
+
+Esse é o on-ramp: **caos do projeto → governança rastreável.** `_knowledge/` nunca é commitado no paddock.
+
 ## Definition of Ready (DoR) — antes de puxar um item
 Um item só vira 🔵 in-progress quando:
 - [ ] tem **critério de aceite** claro (no próprio item se trivial; em `specs/` se não);

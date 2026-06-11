@@ -1,0 +1,21 @@
+# {PROJETO} — workspace
+
+Raiz de trabalho deste projeto. O agente roda daqui e enxerga tudo. **Topologia:**
+
+- **`paddock/`** — memória estruturada do projeto (status canônico + decisões + specs/plans).
+  **Fonte única de status.** No início de uma sessão de trabalho, ler `paddock/roadmap/status.md`
+  (bloco "AGORA") + `paddock/FRAMEWORK.md`. Ao fim, atualizar o `status.md` (status + evidência) e
+  commitar referenciando o ID. Seguir o ritual + DoR/DoD do FRAMEWORK.
+- **`repo-a/`, `repo-b/`** — repos de código do projeto. Trabalho de código vive aqui; cada item do
+  `status.md` linka o PR/commit (`repo-a#NN`) como evidência. Git: trunk-based + branch curto + PR +
+  tag do ID no commit (ver `paddock/FRAMEWORK.md` › Git).
+- **`_knowledge/`** — intake **bruto** (pdf, transcrições, drawio, exports). É **entrada**, não memória.
+  Destilar o relevante em `paddock/` (decisions/specs/status). **Nunca commitar `_knowledge/` no paddock.**
+
+## Regras
+- Todo trabalho amarrado a um **ID** do `paddock/roadmap/status.md`. Trabalho novo sem ID → criar a linha antes.
+- `status.md` enxuto: 1 linha por item; detalhe gordo no PR/spec linkado.
+- Evidência-ou-nada: ✅/🟡/🔵 sempre com link (PR/commit/ADR).
+
+> Renomeie este arquivo conforme sua ferramenta: `CLAUDE.md` (Claude Code), `.cursorrules` (Cursor),
+> `AGENTS.md`, etc. Ajuste os nomes dos repos.
