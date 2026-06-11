@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paddock — git-native memory bank + roadmap for AI-assisted teams</title>
+<meta name="description" content="Paddock is a git-native memory bank and roadmap for AI-assisted teams: evidence-linked status, delivery guardrails (DoR/DoD), a multi-repo workspace, and cross-agent (Copilot, Cursor, Claude). Apache-2.0, zero-dependency template by HorseLabs." />
+<meta property="og:title" content="Paddock — memory bank + roadmap for AI-assisted teams" />
+<meta property="og:description" content="A memory bank that's also a roadmap + governance, evidence-linked to your code. Multi-repo, cross-agent, zero-dependency. Apache-2.0 · by HorseLabs." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- grain / paper texture overlay -->
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="nav-brand" href="#top" aria-label="Paddock">
+    <span class="hoof" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 3c-1.6 1.2-2.4 3.4-2.4 6 0 4.2 2.6 9 3.8 11.4.5 1 .8 1.6 1.6 1.6.7 0 .9-.7.9-1.7 0-1.6-.4-3.6-.4-5.2 0-1.4.7-2 1.5-2s1.5.6 1.5 2c0 1.6-.4 3.6-.4 5.2 0 1 .2 1.7.9 1.7.8 0 1.1-.6 1.6-1.6C18.8 18 21.4 13.2 21.4 9c0-2.6-.8-4.8-2.4-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </span>
+    Paddock
+  </a>
+  <nav class="nav-links">
+    <a href="#how" data-i18n="nav.how">How it works</a>
+    <a href="#use" data-i18n="nav.use">Use it</a>
+    <a href="#why" data-i18n="nav.why">Benefits</a>
+    <a class="nav-gh" href="https://github.com/horse-labs/paddock" target="_blank" rel="noopener">GitHub ↗</a>
+    <button class="lang" id="langToggle" type="button" aria-label="Switch language">
+      <span class="lang-en">EN</span><span class="lang-sep">/</span><span class="lang-pt">PT</span>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <p class="eyebrow reveal" data-i18n="hero.eyebrow">Memory bank + roadmap · for AI-assisted teams</p>
+    <h1 class="reveal d1">Paddock<span class="dot">.</span></h1>
+    <p class="lede reveal d2" data-i18n="hero.lede">
+      A <em>git-native memory bank</em> that's also a roadmap — evidence-linked to your code, across a
+      multi-repo workspace, with delivery guardrails. So humans and AI agents share the same map, every session.
+    </p>
+    <div class="cta reveal d3">
+      <a class="btn solid" href="https://github.com/horse-labs/paddock/generate" target="_blank" rel="noopener" data-i18n="hero.ctaPrimary">Use this template</a>
+      <a class="btn ghost" href="https://github.com/horse-labs/paddock" target="_blank" rel="noopener" data-i18n="hero.ctaSecondary">Read the repo ↗</a>
+    </div>
+    <div class="badges reveal d4">
+      <span class="badge">Apache-2.0</span>
+      <span class="badge">zero-dependency</span>
+      <span class="badge">cross-agent</span>
+      <span class="badge">cross-OS</span>
+    </div>
+
+    <!-- hero visual: a status.md row, terminal-authentic -->
+    <figure class="term reveal d4" aria-label="example status.md row">
+      <div class="term-bar"><i></i><i></i><i></i><span>roadmap/status.md</span></div>
+      <pre class="term-body"><code><span class="c-dim">| ID  | item                  | status | evidence | note            |</span>
+<span class="c-dim">|-----|-----------------------|:------:|----------|-----------------|</span>
+| E1  | Auth + sessions       |   <span class="c-ok">✅</span>   | <span class="c-acc">api#42</span>   | DoD met         |
+| E2  | Billing webhook       |   <span class="c-warn">🟡</span>   | <span class="c-acc">api#51</span>   | retries pending |
+| X-3 | Rate limiting         |   ❌   | —        | P1 · blocked: E1|</code></pre>
+    </figure>
+  </section>
+
+  <!-- ── PROBLEM ── -->
+  <section class="band">
+    <p class="sec-no">01</p>
+    <h2 class="sec-h" data-i18n="prob.h">Context dies between sessions.</h2>
+    <p class="sec-p" data-i18n="prob.p">
+      AI-assisted work generates a lot of context that evaporates: decisions, the roadmap, the <em>why</em>.
+      Drive and Notion go stale, and the agent can't read or write them natively. Next session, you re-explain
+      everything — or the agent guesses.
+    </p>
+  </section>
+
+  <!-- ── MEMORY BANK + BEYOND ── -->
+  <section class="band alt">
+    <p class="sec-no">02</p>
+    <h2 class="sec-h"><span data-i18n="mb.h1">Memory bank</span> <span class="amp" data-i18n="mb.h2">— and beyond</span></h2>
+    <p class="sec-p" data-i18n="mb.p">
+      The category has a name: <strong>memory bank</strong> — markdown kept in the repo, fed to the agent at the
+      start of every session to restore context. Paddock is that at its core. But it goes further, adding the
+      <em>engineering-governance</em> layer most memory banks lack:
+    </p>
+    <div class="cards">
+      <article class="card">
+        <h3 data-i18n="mb.c1h">Evidence-linked roadmap</h3>
+        <p data-i18n="mb.c1p">Not just "what the project is" — what's <em>done / pending</em>, each item linked to a PR/commit/ADR. The memory bank becomes the source of truth for progress.</p>
+      </article>
+      <article class="card">
+        <h3 data-i18n="mb.c2h">Delivery guardrails</h3>
+        <p data-i18n="mb.c2p">A short session ritual + Definition of Ready / Done + a trunk-based git stance. Not only context — <em>process</em>.</p>
+      </article>
+      <article class="card">
+        <h3 data-i18n="mb.c3h">Multi-repo + refinery</h3>
+        <p data-i18n="mb.c3p">Many repos under one workspace, plus a raw <code>_knowledge/</code> intake distilled into structure. Most memory banks are single-repo and context-only.</p>
+      </article>
+      <article class="card">
+        <h3 data-i18n="mb.c4h">Cross-agent</h3>
+        <p data-i18n="mb.c4p"><code>AGENTS.md</code> read by Copilot, Cursor, Codex and Claude. Not tied to one tool — the core is markdown + git.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── TOPOLOGY ── -->
+  <section class="band" id="how">
+    <p class="sec-no">03</p>
+    <h2 class="sec-h" data-i18n="topo.h">One workspace. The agent sees everything.</h2>
+    <p class="sec-p" data-i18n="topo.p">
+      Paddock isn't an island — it lives at the root of your workspace, next to the code repos and the raw
+      project material. The agent runs from the root and cross-references memory + code + raw input at once.
+    </p>
+    <figure class="term wide" aria-label="workspace topology">
+      <div class="term-bar"><i></i><i></i><i></i><span>~/workspace</span></div>
+      <pre class="term-body"><code>~/workspace/                 <span class="c-dim">← the agent runs from here</span>
+├── <span class="c-acc">paddock/</span>                 <span class="c-dim">structured memory (this framework)</span>
+├── repo-a/  repo-b/         <span class="c-dim">your code repos</span>
+└── <span class="c-acc">_knowledge/</span>              <span class="c-dim">raw intake: pdf, transcripts, drawio…</span></code></pre>
+    </figure>
+    <p class="sec-p tight" data-i18n="topo.refinery">
+      Paddock acts as a <strong>refinery</strong>: it distills the raw pile in <code>_knowledge/</code> into
+      structure — specs, decisions, status. From chaos to traceable governance.
+    </p>
+  </section>
+
+  <!-- ── HOW TO USE ── -->
+  <section class="band alt" id="use">
+    <p class="sec-no">04</p>
+    <h2 class="sec-h" data-i18n="use.h">Adopt it in minutes.</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-k">1</span>
+        <div>
+          <h3 data-i18n="use.s1h">Use the template</h3>
+          <p data-i18n="use.s1p">Click <em>Use this template</em> on GitHub (or the button below). You get the whole scaffold.</p>
+        </div>
+      </li>
+      <li>
+        <span class="step-k">2</span>
+        <div>
+          <h3 data-i18n="use.s2h">Run setup</h3>
+          <p data-i18n="use.s2p">Applies your project name, generates the cross-agent <code>AGENTS.md</code>, validates the skeleton. (Windows: Git Bash/WSL.)</p>
+          <pre class="snip"><code>git clone &lt;your-repo&gt; &amp;&amp; cd &lt;your-repo&gt;
+bash setup.sh "My Project"</code></pre>
+        </div>
+      </li>
+      <li>
+        <span class="step-k">3</span>
+        <div>
+          <h3 data-i18n="use.s3h">Track work with evidence</h3>
+          <p data-i18n="use.s3p">One line per item in <code>status.md</code>. Every ✅/🟡 carries a link — no evidence, no status.</p>
+          <pre class="snip"><code>| E1 | Auth + sessions | ✅ | api#42 | DoD met |</code></pre>
+        </div>
+      </li>
+      <li>
+        <span class="step-k">4</span>
+        <div>
+          <h3 data-i18n="use.s4h">See the panorama</h3>
+          <p data-i18n="use.s4p">A visual status report on demand — and an integrity lint that fails on stale markers.</p>
+          <pre class="snip"><code>$ bash tools/report.sh
+  STATUS  ✅ 12  🟡 3  ❌ 5   ████████░░░ 60%</code></pre>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ── BENEFITS ── -->
+  <section class="band" id="why">
+    <p class="sec-no">05</p>
+    <h2 class="sec-h" data-i18n="why.h">Why teams adopt it.</h2>
+    <ul class="benefits">
+      <li><span class="b-k" data-i18n="why.b1k">Traceability</span><span data-i18n="why.b1p">roadmap ↔ code, every item linked to a PR/commit.</span></li>
+      <li><span class="b-k" data-i18n="why.b2k">Persistent context</span><span data-i18n="why.b2p">the agent restores the project each session — no re-explaining.</span></li>
+      <li><span class="b-k" data-i18n="why.b3k">Light governance</span><span data-i18n="why.b3p">DoR/DoD + ritual that deliver, without ceremony.</span></li>
+      <li><span class="b-k" data-i18n="why.b4k">Cross-agent</span><span data-i18n="why.b4p">Copilot, Cursor, Codex, Claude — one AGENTS.md.</span></li>
+      <li><span class="b-k" data-i18n="why.b5k">Cross-OS</span><span data-i18n="why.b5p">Linux/macOS native; Windows via Git Bash/WSL.</span></li>
+      <li><span class="b-k" data-i18n="why.b6k">Zero-dependency</span><span data-i18n="why.b6p">markdown + git. No SSG, no runtime, no lock-in.</span></li>
+    </ul>
+  </section>
+
+  <!-- ── FINAL CTA ── -->
+  <section class="final">
+    <h2 class="final-h" data-i18n="cta.h">Give your project a memory.</h2>
+    <div class="cta">
+      <a class="btn solid" href="https://github.com/horse-labs/paddock/generate" target="_blank" rel="noopener" data-i18n="hero.ctaPrimary">Use this template</a>
+      <a class="btn ghost" href="https://github.com/horse-labs/paddock" target="_blank" rel="noopener" data-i18n="cta.repo">View on GitHub ↗</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span class="wm">Horse<span class="blood">Labs.</span></span>
+  <span class="foot-meta">Paddock · <a href="https://github.com/horse-labs/paddock/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a> · <a href="https://github.com/horse-labs/paddock/releases" target="_blank" rel="noopener">releases</a></span>
+</footer>
+
+<script src="i18n.js"></script>
+</body>
+</html>
