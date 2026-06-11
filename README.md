@@ -39,13 +39,16 @@ Setup completo + ritual de ingest: **[`docs/workspace-setup.md`](docs/workspace-
 ## Quickstart
 
 ```bash
+# Linux/macOS: terminal nativo. Windows: rode no Git Bash (vem com o Git) ou WSL.
 # 1. "Use this template" no GitHub  →  seu-org/seu-projeto-workbench
 # 2. clone e rode o setup
 git clone <seu-repo> && cd <seu-repo>
-bash setup.sh                  # renomeia placeholders, limpa exemplos, valida
+bash setup.sh                  # aplica o nome do projeto, chmod nos scripts, valida (lint)
 # 3. abra roadmap/status.md, registre seus primeiros itens
 # 4. a cada sessão, siga o FRAMEWORK.md
 ```
+> Os scripts (`setup`/`report`/`lint`) são **opcionais** — o core é markdown + git e funciona em qualquer
+> SO sem rodar nada. No Windows, rode os scripts via **Git Bash**/WSL.
 
 Detalhe em [`docs/getting-started.md`](docs/getting-started.md).
 
