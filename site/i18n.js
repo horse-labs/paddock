@@ -1,73 +1,169 @@
-/* Paddock landing — bilingual toggle (EN/PT), vanilla, zero-dep. */
+/* Paddock landing (c1-final) — bilingual EN/PT toggle + scroll reveal.
+   Vanilla, zero-dependency. Default EN. Honors ?lang=, localStorage, navigator.language.
+   Reveal is progressive enhancement only — content is fully visible without JS. */
 (function () {
+  "use strict";
+
+  /* ─── i18n dictionary ─────────────────────────────────────────
+     innerHTML is used on apply() so inline <em>/<strong>/<code> survive.
+     Code blocks / commands / the status table stay literal (not keyed). */
   var T = {
     en: {
-      "nav.how": "How it works", "nav.use": "Use it", "nav.why": "Benefits",
-      "hero.eyebrow": "Memory bank + roadmap · for AI-assisted teams",
-      "hero.lede": "A <em>git-native memory bank</em> that's also a roadmap — evidence-linked to your code, across a multi-repo workspace, with delivery guardrails. So humans and AI agents share the same map, every session.",
-      "hero.ctaPrimary": "Use this template", "hero.ctaSecondary": "Read the repo ↗",
-      "prob.h": "Context dies between sessions.",
-      "prob.p": "AI-assisted work generates a lot of context that evaporates: decisions, the roadmap, the <em>why</em>. Drive and Notion go stale, and the agent can't read or write them natively. Next session, you re-explain everything — or the agent guesses.",
-      "mb.h1": "Memory bank", "mb.h2": "— and beyond",
-      "mb.p": "The category has a name: <strong>memory bank</strong> — markdown kept in the repo, fed to the agent at the start of every session to restore context. Paddock is that at its core. But it goes further, adding the <em>engineering-governance</em> layer most memory banks lack:",
-      "mb.c1h": "Evidence-linked roadmap",
-      "mb.c1p": "Not just \"what the project is\" — what's <em>done / pending</em>, each item linked to a PR/commit/ADR. The memory bank becomes the source of truth for progress.",
-      "mb.c2h": "Delivery guardrails",
-      "mb.c2p": "A short session ritual + Definition of Ready / Done + a trunk-based git stance. Not only context — <em>process</em>.",
-      "mb.c3h": "Multi-repo + refinery",
-      "mb.c3p": "Many repos under one workspace, plus a raw <code>_knowledge/</code> intake distilled into structure. Most memory banks are single-repo and context-only.",
-      "mb.c4h": "Cross-agent",
-      "mb.c4p": "<code>AGENTS.md</code> read by Copilot, Cursor, Codex and Claude. Not tied to one tool — the core is markdown + git.",
-      "topo.h": "One workspace. The agent sees everything.",
-      "topo.p": "Paddock isn't an island — it lives at the root of your workspace, next to the code repos and the raw project material. The agent runs from the root and cross-references memory + code + raw input at once.",
-      "topo.refinery": "Paddock acts as a <strong>refinery</strong>: it distills the raw pile in <code>_knowledge/</code> into structure — specs, decisions, status. From chaos to traceable governance.",
-      "use.h": "Adopt it in minutes.",
-      "use.s1h": "Use the template", "use.s1p": "Click <em>Use this template</em> on GitHub (or the button below). You get the whole scaffold.",
-      "use.s2h": "Run setup", "use.s2p": "Applies your project name, generates the cross-agent <code>AGENTS.md</code>, validates the skeleton. (Windows: Git Bash/WSL.)",
-      "use.s3h": "Track work with evidence", "use.s3p": "One line per item in <code>status.md</code>. Every ✅/🟡 carries a link — no evidence, no status.",
-      "use.s4h": "See the panorama", "use.s4p": "A visual status report on demand — and an integrity lint that fails on stale markers.",
-      "why.h": "Why teams adopt it.",
-      "why.b1k": "Traceability", "why.b1p": "roadmap ↔ code, every item linked to a PR/commit.",
-      "why.b2k": "Persistent context", "why.b2p": "the agent restores the project each session — no re-explaining.",
-      "why.b3k": "Light governance", "why.b3p": "DoR/DoD + ritual that deliver, without ceremony.",
-      "why.b4k": "Cross-agent", "why.b4p": "Copilot, Cursor, Codex, Claude — one AGENTS.md.",
-      "why.b5k": "Cross-OS", "why.b5p": "Linux/macOS native; Windows via Git Bash/WSL.",
-      "why.b6k": "Zero-dependency", "why.b6p": "markdown + git. No SSG, no runtime, no lock-in.",
-      "cta.h": "Give your project a memory.", "cta.repo": "View on GitHub ↗"
+      "a11y.skip": "Skip to content",
+
+      "nav.problem": "Problem",
+      "nav.concept": "Memory bank",
+      "nav.topology": "Topology",
+      "nav.usage": "Use it",
+
+      "badge.zerodep": "Zero-dependency",
+      "badge.crossagent": "Cross-agent",
+
+      "hero.eyebrow": "A HorseLabs open project",
+      "hero.title": "<span class=\"reveal\" data-d=\"1\">The memory bank</span><span class=\"reveal\" data-d=\"2\">your <em>agent</em> never</span><span class=\"reveal\" data-d=\"3\">forgets.</span>",
+      "hero.lede": "Paddock is the git-native memory bank <span class=\"amp\">+</span> roadmap for AI-assisted teams — <strong>evidence-linked</strong>, multi-repo, with delivery guardrails.",
+      "hero.ctaPrimary": "Use this template",
+      "hero.ctaSecondary": "View on GitHub ↗",
+      "hero.statusCap": "roadmap/status.md — every status carries its proof",
+
+      "problem.kicker": "The problem",
+      "problem.title": "Context dies <em>between sessions.</em>",
+      "problem.p1": "AI-assisted work generates a tremendous amount of context — the decisions, the roadmap, the <em>why</em> behind every trade-off. Then the session ends, and it evaporates.",
+      "problem.p2": "Drive and Notion go stale the moment you close the tab. Worse, the agent can't read or write them natively. So next session opens the same way every time: re-explaining everything you already decided.",
+      "problem.punch": "Memory shouldn't live in a human's head, or a doc nobody updates. It should live where the work lives — <span class=\"hl\">in the repo.</span>",
+
+      "concept.kicker": "Memory bank — and beyond",
+      "concept.title": "A <em>memory bank</em> at its core. <br class=\"br-d\" />Governance on top.",
+      "concept.lede": "The category is the <strong>memory bank</strong> — structured markdown kept in the repo and fed to the agent each session to restore context. Paddock is that, then keeps going, adding the engineering governance real teams actually need.",
+      "concept.c1h": "Evidence-linked roadmap",
+      "concept.c1p": "What's done, what's pending — and every item linked to a PR, a commit, or an ADR. No status without proof.",
+      "concept.c2h": "Delivery guardrails",
+      "concept.c2p": "A lightweight session ritual, a Definition of Ready / Done, and trunk-based git. Discipline without ceremony.",
+      "concept.c3h": "Multi-repo + refinery",
+      "concept.c3p": "Many repos in one workspace, plus a raw <code>_knowledge/</code> intake that's distilled into clean structure.",
+      "concept.c4h": "Cross-agent",
+      "concept.c4p": "One <code>AGENTS.md</code>, read by Copilot, Cursor, Codex and Claude alike. Write the context once.",
+
+      "topology.kicker": "Topology",
+      "topology.title": "One workspace. <br class=\"br-d\" />The agent <em>sees everything.</em>",
+      "topology.p1": "Your agent runs from a single workspace root. Code repos sit beside the structured memory, beside the raw intake. Nothing is hidden in a tab the model can't reach.",
+      "topology.p2": "Paddock acts as a <strong>refinery</strong>: it distills the unstructured <code>_knowledge/</code> — PDFs, transcripts, diagrams — into specs, decisions and status.",
+
+      "usage.kicker": "How to use it",
+      "usage.title": "Four steps to a project <em>with a memory.</em>",
+      "usage.s1h": "Use the template",
+      "usage.s1p": "Generate your own repository from Paddock — one click, no fork to maintain.",
+      "usage.s1link": "Use this template ↗",
+      "usage.s2h": "Run setup",
+      "usage.s2p": "Clone it, then let the script scaffold your structured memory.",
+      "usage.s3h": "Track work with evidence",
+      "usage.s3p": "One line in <code>status.md</code> — the proof travels with the status.",
+      "usage.s4h": "See the panorama",
+      "usage.s4p": "One command prints the whole delivery picture as a status bar.",
+
+      "benefits.kicker": "Why it holds up",
+      "benefits.title": "Built to be quietly <em>indispensable.</em>",
+      "benefits.b1k": "Traceability",
+      "benefits.b1p": "Roadmap ↔ code, every line PR-linked. The audit writes itself.",
+      "benefits.b2k": "Persistent context",
+      "benefits.b2p": "The agent restores the full picture at the start of each session.",
+      "benefits.b3k": "Light governance",
+      "benefits.b3p": "Definition of Ready / Done with zero ceremony or overhead.",
+      "benefits.b4k": "Cross-agent",
+      "benefits.b4p": "One <code>AGENTS.md</code> serves every assistant your team runs.",
+      "benefits.b5k": "Cross-OS",
+      "benefits.b5p": "Native on Linux &amp; macOS; Windows via Git Bash or WSL.",
+      "benefits.b6k": "Zero-dependency",
+      "benefits.b6p": "Just markdown and git. Nothing to install, nothing to break.",
+
+      "final.eyebrow": "Start now",
+      "final.title": "Give your project <em>a memory.</em>",
+      "final.lede": "Generate the template, run one script, and your agent walks in already knowing where things stand.",
+
+      "foot.tag": "Tools for AI-assisted engineering teams.",
+      "foot.repo": "Repository ↗",
+      "foot.releases": "Releases ↗",
+      "foot.template": "Use template ↗",
+      "foot.legal": "Apache-2.0 · Free &amp; open source · © 2026 HorseLabs"
     },
+
     pt: {
-      "nav.how": "Como funciona", "nav.use": "Usar", "nav.why": "Benefícios",
-      "hero.eyebrow": "Memory bank + roadmap · para times com IA",
-      "hero.lede": "Um <em>memory bank git-native</em> que também é roadmap — com evidência ligada ao seu código, num workspace multi-repo, com guardrails de entrega. Humano e agente de IA no mesmo mapa, a cada sessão.",
-      "hero.ctaPrimary": "Usar este template", "hero.ctaSecondary": "Ver o repositório ↗",
-      "prob.h": "O contexto morre entre as sessões.",
-      "prob.p": "Trabalho com IA gera muito contexto que evapora: decisões, roadmap, o <em>porquê</em>. Drive e Notion desatualizam, e o agente não lê nem escreve neles. Na próxima sessão, você reexplica tudo — ou o agente chuta.",
-      "mb.h1": "Memory bank", "mb.h2": "— e além",
-      "mb.p": "A categoria tem nome: <strong>memory bank</strong> — markdown no repo, alimentado ao agente no início de cada sessão pra restaurar o contexto. Paddock é isso no core. Mas vai além, somando a camada de <em>governança de engenharia</em> que falta na maioria:",
-      "mb.c1h": "Roadmap com evidência",
-      "mb.c1p": "Não só \"o que o projeto é\" — o que está <em>feito / pendente</em>, cada item ligado a PR/commit/ADR. O memory bank vira a fonte de verdade do progresso.",
-      "mb.c2h": "Guardrails de entrega",
-      "mb.c2p": "Ritual de sessão curto + Definition of Ready / Done + git trunk-based. Não só contexto — <em>processo</em>.",
-      "mb.c3h": "Multi-repo + refinaria",
-      "mb.c3p": "Vários repos num workspace, mais um intake bruto <code>_knowledge/</code> destilado em estrutura. A maioria dos memory banks é single-repo e só-contexto.",
-      "mb.c4h": "Cross-agent",
-      "mb.c4p": "<code>AGENTS.md</code> lido por Copilot, Cursor, Codex e Claude. Não amarra a uma ferramenta — o core é markdown + git.",
-      "topo.h": "Um workspace. O agente enxerga tudo.",
-      "topo.p": "Paddock não é ilha — vive na raiz do seu workspace, ao lado dos repos de código e do material bruto. O agente roda da raiz e cruza memória + código + matéria-prima de uma vez.",
-      "topo.refinery": "Paddock age como <strong>refinaria</strong>: destila o entulho de <code>_knowledge/</code> em estrutura — specs, decisões, status. Do caos à governança rastreável.",
-      "use.h": "Adote em minutos.",
-      "use.s1h": "Use o template", "use.s1p": "Clique em <em>Use this template</em> no GitHub (ou no botão abaixo). Você ganha o scaffold inteiro.",
-      "use.s2h": "Rode o setup", "use.s2p": "Aplica o nome do projeto, gera o <code>AGENTS.md</code> cross-agent, valida o esqueleto. (Windows: Git Bash/WSL.)",
-      "use.s3h": "Rastreie com evidência", "use.s3p": "Uma linha por item no <code>status.md</code>. Todo ✅/🟡 carrega um link — sem evidência, sem status.",
-      "use.s4h": "Veja o panorama", "use.s4p": "Relatório visual de status sob demanda — e um lint de integridade que reprova marcador stale.",
-      "why.h": "Por que times adotam.",
-      "why.b1k": "Rastreabilidade", "why.b1p": "roadmap ↔ código, cada item ligado a um PR/commit.",
-      "why.b2k": "Contexto persistente", "why.b2p": "o agente restaura o projeto a cada sessão — sem reexplicar.",
-      "why.b3k": "Governança leve", "why.b3p": "DoR/DoD + ritual que entregam, sem cerimônia.",
-      "why.b4k": "Cross-agent", "why.b4p": "Copilot, Cursor, Codex, Claude — um AGENTS.md.",
-      "why.b5k": "Cross-OS", "why.b5p": "Linux/macOS nativo; Windows via Git Bash/WSL.",
-      "why.b6k": "Zero-dependência", "why.b6p": "markdown + git. Sem SSG, sem runtime, sem lock-in.",
-      "cta.h": "Dê uma memória ao seu projeto.", "cta.repo": "Ver no GitHub ↗"
+      "a11y.skip": "Pular para o conteúdo",
+
+      "nav.problem": "Problema",
+      "nav.concept": "Memory bank",
+      "nav.topology": "Topologia",
+      "nav.usage": "Usar",
+
+      "badge.zerodep": "Zero-dependência",
+      "badge.crossagent": "Cross-agent",
+
+      "hero.eyebrow": "Um projeto aberto da HorseLabs",
+      "hero.title": "<span class=\"reveal\" data-d=\"1\">O memory bank que</span><span class=\"reveal\" data-d=\"2\">seu <em>agente</em> nunca</span><span class=\"reveal\" data-d=\"3\">esquece.</span>",
+      "hero.lede": "Paddock é o memory bank git-native <span class=\"amp\">+</span> roadmap para times com IA — <strong>com evidência ligada ao código</strong>, multi-repo, com guardrails de entrega.",
+      "hero.ctaPrimary": "Usar este template",
+      "hero.ctaSecondary": "Ver no GitHub ↗",
+      "hero.statusCap": "roadmap/status.md — todo status carrega sua prova",
+
+      "problem.kicker": "O problema",
+      "problem.title": "O contexto morre <em>entre as sessões.</em>",
+      "problem.p1": "Trabalho com IA gera uma quantidade enorme de contexto — as decisões, o roadmap, o <em>porquê</em> por trás de cada trade-off. Aí a sessão acaba, e tudo evapora.",
+      "problem.p2": "Drive e Notion desatualizam no instante em que você fecha a aba. Pior: o agente não lê nem escreve neles nativamente. Então toda sessão começa do mesmo jeito: reexplicando tudo que você já decidiu.",
+      "problem.punch": "Memória não devia viver na cabeça de alguém, nem num doc que ninguém atualiza. Ela devia viver onde o trabalho vive — <span class=\"hl\">no repositório.</span>",
+
+      "concept.kicker": "Memory bank — e além",
+      "concept.title": "Um <em>memory bank</em> no núcleo. <br class=\"br-d\" />Governança por cima.",
+      "concept.lede": "A categoria é o <strong>memory bank</strong> — markdown estruturado guardado no repo e alimentado ao agente a cada sessão para restaurar o contexto. Paddock é isso e continua adiante, somando a governança de engenharia que os times realmente precisam.",
+      "concept.c1h": "Roadmap com evidência",
+      "concept.c1p": "O que está feito, o que está pendente — e cada item ligado a um PR, um commit ou um ADR. Sem status sem prova.",
+      "concept.c2h": "Guardrails de entrega",
+      "concept.c2p": "Um ritual de sessão leve, uma Definition of Ready / Done e git trunk-based. Disciplina sem cerimônia.",
+      "concept.c3h": "Multi-repo + refinaria",
+      "concept.c3p": "Vários repos num só workspace, mais um intake bruto <code>_knowledge/</code> que é destilado em estrutura limpa.",
+      "concept.c4h": "Cross-agent",
+      "concept.c4p": "Um único <code>AGENTS.md</code>, lido por Copilot, Cursor, Codex e Claude igualmente. Escreva o contexto uma vez só.",
+
+      "topology.kicker": "Topologia",
+      "topology.title": "Um workspace. <br class=\"br-d\" />O agente <em>enxerga tudo.</em>",
+      "topology.p1": "Seu agente roda a partir de uma única raiz de workspace. Os repos de código ficam ao lado da memória estruturada, ao lado do intake bruto. Nada fica escondido numa aba que o modelo não alcança.",
+      "topology.p2": "Paddock age como uma <strong>refinaria</strong>: destila o <code>_knowledge/</code> não estruturado — PDFs, transcrições, diagramas — em specs, decisões e status.",
+
+      "usage.kicker": "Como usar",
+      "usage.title": "Quatro passos para um projeto <em>com memória.</em>",
+      "usage.s1h": "Use o template",
+      "usage.s1p": "Gere seu próprio repositório a partir do Paddock — um clique, sem fork para manter.",
+      "usage.s1link": "Usar este template ↗",
+      "usage.s2h": "Rode o setup",
+      "usage.s2p": "Clone e deixe o script montar sua memória estruturada.",
+      "usage.s3h": "Rastreie com evidência",
+      "usage.s3p": "Uma linha no <code>status.md</code> — a prova viaja junto com o status.",
+      "usage.s4h": "Veja o panorama",
+      "usage.s4p": "Um comando imprime todo o quadro de entrega como uma barra de status.",
+
+      "benefits.kicker": "Por que se sustenta",
+      "benefits.title": "Feito para ser silenciosamente <em>indispensável.</em>",
+      "benefits.b1k": "Rastreabilidade",
+      "benefits.b1p": "Roadmap ↔ código, cada linha ligada a um PR. A auditoria se escreve sozinha.",
+      "benefits.b2k": "Contexto persistente",
+      "benefits.b2p": "O agente restaura o quadro completo no início de cada sessão.",
+      "benefits.b3k": "Governança leve",
+      "benefits.b3p": "Definition of Ready / Done sem cerimônia nem overhead.",
+      "benefits.b4k": "Cross-agent",
+      "benefits.b4p": "Um único <code>AGENTS.md</code> serve todo assistente que seu time usa.",
+      "benefits.b5k": "Cross-OS",
+      "benefits.b5p": "Nativo em Linux &amp; macOS; Windows via Git Bash ou WSL.",
+      "benefits.b6k": "Zero-dependência",
+      "benefits.b6p": "Só markdown e git. Nada para instalar, nada para quebrar.",
+
+      "final.eyebrow": "Comece agora",
+      "final.title": "Dê uma <em>memória</em> ao seu projeto.",
+      "final.lede": "Gere o template, rode um script, e seu agente entra já sabendo onde as coisas estão.",
+
+      "foot.tag": "Ferramentas para times de engenharia com IA.",
+      "foot.repo": "Repositório ↗",
+      "foot.releases": "Releases ↗",
+      "foot.template": "Usar template ↗",
+      "foot.legal": "Apache-2.0 · Livre & código aberto · © 2026 HorseLabs"
     }
   };
 
@@ -78,6 +174,8 @@
       var v = dict[el.getAttribute("data-i18n")];
       if (v != null) el.innerHTML = v;
     });
+    var btn = document.getElementById("langToggle");
+    if (btn) btn.setAttribute("aria-pressed", lang === "pt" ? "true" : "false");
     try { localStorage.setItem("paddock-lang", lang); } catch (e) {}
   }
 
@@ -91,5 +189,46 @@
   var btn = document.getElementById("langToggle");
   if (btn) btn.addEventListener("click", function () {
     apply(document.documentElement.getAttribute("lang") === "pt" ? "en" : "pt");
+  });
+
+  /* ─── scroll reveal (progressive enhancement only) ───────────
+     CSS keeps content visible if JS is off. Hero reveals run on
+     load via CSS; .reveal-up elements fade up on scroll. */
+  var prefersReduced =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var targets = Array.prototype.slice.call(
+    document.querySelectorAll(".reveal-up")
+  );
+
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    targets.forEach(function (el) {
+      el.classList.add("is-in");
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+    return;
+  }
+
+  var io = new IntersectionObserver(
+    function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var siblings = Array.prototype.slice.call(
+          el.parentNode.querySelectorAll(":scope > .reveal-up")
+        );
+        var idx = Math.max(0, siblings.indexOf(el));
+        el.style.animationDelay = idx * 70 + "ms";
+        el.classList.add("is-in");
+        obs.unobserve(el);
+      });
+    },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+  );
+
+  targets.forEach(function (el) {
+    io.observe(el);
   });
 })();
