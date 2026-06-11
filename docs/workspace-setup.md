@@ -37,8 +37,8 @@ git clone <repo-b> repo-b
 # 3. o intake bruto (NÃO é repo git — é dump local privado)
 mkdir _knowledge   # jogue aqui pdf/transcrições/drawio/exports do Drive…
 
-# 4. config do agente na raiz (descreve a topologia pro agente)
-cp paddock/docs/workspace-CLAUDE.md.example ~/workspace/CLAUDE.md   # ajuste os nomes
+# 4. config do agente na raiz — o setup.sh JÁ gera ~/workspace/AGENTS.md automaticamente.
+#    (pra Claude Code, copie como CLAUDE.md; pra Copilot por-repo, .github/copilot-instructions.md)
 ```
 
 ## `_knowledge/` — regras
@@ -55,7 +55,20 @@ cp paddock/docs/workspace-CLAUDE.md.example ~/workspace/CLAUDE.md   # ajuste os 
 
 Esse é o on-ramp do Paddock: **transforma o caos do projeto em governança rastreável.**
 
-## Config do agente
-O agente precisa saber a topologia. Use o exemplo [`workspace-CLAUDE.md.example`](./workspace-CLAUDE.md.example)
-na raiz `~/workspace/` (renomeie pro que sua ferramenta lê: `CLAUDE.md`, `.cursorrules`, `AGENTS.md`…).
-Ele diz: *paddock/ = memória (seguir FRAMEWORK), repos = código, `_knowledge/` = intake bruto.*
+## Config do agente (funciona com qualquer um)
+O agente precisa saber a topologia. O `setup.sh` gera **`~/workspace/AGENTS.md`** automaticamente a partir
+de [`workspace-AGENTS.md.example`](./workspace-AGENTS.md.example) (não sobrescreve se já existir).
+`AGENTS.md` é a lingua franca lida por vários agentes. Mapa por ferramenta:
+
+| Ferramenta | Onde o adapter mora | Nota |
+|---|---|---|
+| **GitHub Copilot** (CLI / VS Code agent) | `AGENTS.md` na raiz (cwd) | + por-repo: `<repo>/.github/copilot-instructions.md` |
+| **Claude Code** | `CLAUDE.md` na raiz | copie o `AGENTS.md` p/ `CLAUDE.md` |
+| **Cursor** | `.cursorrules` ou `AGENTS.md` | — |
+| **Codex / outros** | `AGENTS.md` | padrão emergente |
+| **qualquer** | — | o core é markdown+git; o agente lê os arquivos de qualquer jeito |
+
+⚠️ O **agente de coding hospedado do Copilot** (autônomo em issue/PR) é **escopado a 1 repo** — não vê os
+repos-irmãos nem `_knowledge/`. A co-locação multi-repo brilha nas superfícies **locais** (Copilot CLI/VS Code,
+Claude Code, Cursor). Pro agente hospedado, ponha um `.github/copilot-instructions.md` no repo apontando o
+essencial do status.

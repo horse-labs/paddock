@@ -34,7 +34,9 @@ da raiz e cruza memória + código + matéria-prima de uma vez.
   └── _knowledge/              ← INTAKE bruto: pdf, transcrições, drawio… (privado, não-versionado)
 ```
 Paddock vira **refinaria**: destila o entulho de `_knowledge/` em estrutura (`specs/`/`decisions/`/`status.md`).
-Setup completo + ritual de ingest: **[`docs/workspace-setup.md`](docs/workspace-setup.md)**.
+O `setup.sh` gera um **`AGENTS.md`** na raiz (adapter lido por **GitHub Copilot, Cursor, Codex**; copie p/
+`CLAUDE.md` no Claude Code). Funciona com qualquer agente — o core é markdown+git.
+Setup completo + ritual de ingest + matriz de ferramentas: **[`docs/workspace-setup.md`](docs/workspace-setup.md)**.
 
 ## Quickstart
 
