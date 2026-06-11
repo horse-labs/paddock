@@ -12,9 +12,12 @@ if [ -z "$NAME" ]; then
 fi
 [ -n "$NAME" ] || { echo "nome vazio, abortando" >&2; exit 1; }
 
+# escapa o nome p/ uso seguro no replacement do sed: \ → \\, depois & → \&, depois / → \/
+SAFE=${NAME//\\/\\\\}; SAFE=${SAFE//&/\\&}; SAFE=${SAFE//\//\\/}
+
 # 1. trocar placeholder do nome no status.md
 if grep -q "{NOME DO PROJETO}" "$HERE/roadmap/status.md"; then
-  sed -i.bak "s/{NOME DO PROJETO}/${NAME//\//\\/}/g" "$HERE/roadmap/status.md" && rm -f "$HERE/roadmap/status.md.bak"
+  sed -i.bak "s/{NOME DO PROJETO}/$SAFE/g" "$HERE/roadmap/status.md" && rm -f "$HERE/roadmap/status.md.bak"
   echo "✓ nome do projeto aplicado no status.md"
 fi
 
@@ -28,7 +31,7 @@ ROOT="$(cd "$HERE/.." && pwd)"
 if [ -e "$ROOT/AGENTS.md" ] || [ -e "$ROOT/CLAUDE.md" ] || [ -e "$ROOT/.cursorrules" ]; then
   echo "ℹ adapter de agente já existe na raiz ($ROOT) — não sobrescrevo"
 else
-  sed "s/{PROJETO}/${NAME//\//\\/}/g" "$HERE/docs/workspace-AGENTS.md.example" > "$ROOT/AGENTS.md"
+  sed "s/{PROJETO}/$SAFE/g" "$HERE/docs/workspace-AGENTS.md.example" > "$ROOT/AGENTS.md"
   echo "✓ adapter gerado: $ROOT/AGENTS.md (AGENTS.md — Copilot/Cursor/Codex; copie p/ CLAUDE.md no Claude Code)"
 fi
 
