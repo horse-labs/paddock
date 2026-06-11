@@ -37,6 +37,24 @@ peso à fase do seu projeto.
 **Regra de ouro:** status nunca é checkbox solto. Todo ✅/🟡/🔵 tem **evidência** linkada (PR#, commit SHA,
 ADR, arquivo). Sem evidência → é alegação, não fato. O `tools/lint-status.sh` reprova linhas sem evidência.
 
+## Definition of Ready (DoR) — antes de puxar um item
+Um item só vira 🔵 in-progress quando:
+- [ ] tem **critério de aceite** claro (no próprio item se trivial; em `specs/` se não);
+- [ ] **dependências** conhecidas (e nenhuma bloqueante aberta — ver `blocked-by`);
+- [ ] **cabe numa fatia** (1 sessão / 1 PR); se não cabe, quebrar antes.
+
+Puxar item cru = começar e travar. O DoR é o filtro barato que evita isso.
+
+## Definition of Done (DoD) — o que "✅ feito" exige
+Não marque ✅ sem:
+- [ ] implementado **e verificado** (teste/observação real, não "deve funcionar");
+- [ ] **revisado** (PR ou auto-revisão honesta);
+- [ ] **evidência linkada** (PR#/commit/ADR) — `lint-status.sh` reprova sem link;
+- [ ] **integrado/no ar** se aplicável (mergeado/deployado), não só em branch;
+- [ ] débito gerado **registrado** na nota.
+
+✅ é um **fato verificável**, não um desejo. 🟡 é honesto quando falta parte — use sem culpa.
+
 ## Convenção de IDs
 
 Use prefixos que façam sentido pro seu projeto. Sugestão de base:
@@ -70,6 +88,20 @@ A "verdade" do projeto tende a se espalhar. Concentre **status** aqui; o resto v
 
 Na coluna evidência, referencie o PR/commit do repo de código (ex.: `#16`, `api#42`, ou o SHA quando não
 houve PR). Isso dá a trilha auditável **do roadmap até o código** — o coração do Paddock.
+
+## Git — versionamento & branches (simples de propósito)
+Modelo **trunk-based**, não gitflow:
+- **`main` sempre verde/deployável.** Trabalho em **branch curto** por item (`feat/<id>-slug`,
+  `fix/<id>-slug`); vida de horas/dias, não semanas.
+- **PR pra entrar em `main`** (auto-revisão honesta conta em time solo). Squash-merge ≈ 1 unidade rastreável.
+- **Tag o ID no commit/PR de código** (`feat(api): ... [E1]`) → fecha a trilha roadmap↔código. (Sem isso o
+  histórico vira não-rastreável — é o guardrail de rastreabilidade mais barato que existe.)
+- **Sessões paralelas (vários agentes/devs no mesmo repo):** uma **branch/worktree por sessão** pra não
+  atropelar edições — principalmente no `status.md`.
+- **Versão do produto (opcional):** quando publicar releases, use **semver + tag + CHANGELOG.md**. Não antes —
+  pré-release não precisa de cerimônia de versão.
+
+Evite: gitflow completo (develop/release/hotfix), branches longos, merge sem PR. Trunk-based cobre 95% dos casos sem o peso.
 
 ## Status report visual
 
