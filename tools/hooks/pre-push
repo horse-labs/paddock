@@ -1,0 +1,24 @@
+#!/bin/sh
+# Paddock guard — bloqueia push direto em main/master.
+# Regra dura do FRAMEWORK: todo trabalho entra por branch + PR (ver FRAMEWORK.md › Sessões paralelas).
+# Mecanismo local pra quando branch protection server-side não está disponível (repo privado em plano Free).
+# Escape consciente: ALLOW_MAIN_PUSH=1 git push ...
+#
+# Instalar em todos os repos do workspace: bash tools/install-guard.sh
+
+[ "$ALLOW_MAIN_PUSH" = "1" ] && exit 0
+
+blocked=0
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main | refs/heads/master) blocked=1 ;;
+  esac
+done
+
+if [ "$blocked" = "1" ]; then
+  echo "x push direto em main/master BLOQUEADO (Paddock FRAMEWORK)." >&2
+  echo "  Use uma branch de trabalho + PR. Ver FRAMEWORK.md > Sessoes paralelas." >&2
+  echo "  Emergencia (consciente): ALLOW_MAIN_PUSH=1 git push ..." >&2
+  exit 1
+fi
+exit 0

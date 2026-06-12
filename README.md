@@ -82,8 +82,9 @@ A instância Paddock do seu projeto (o repo gerado do template, ou um fork) é *
 memória é compartilhada por todo o time**. Cada membro clona o mesmo repo e tem o **mesmo contexto**:
 decisões, roadmap, status, o porquê. Onboarding de um dev novo = `git clone` + ler `roadmap/status.md` —
 sem conhecimento tribal, sem "pergunta pro fulano". Atualiza igual código: `git pull` antes da sessão,
-**commit/PR** depois. Trabalho paralelo (vários devs/agentes) = branch/PR como em qualquer repo
-(ver `FRAMEWORK.md`). O contexto do projeto deixa de viver numa cabeça (ou na janela de um agente) e passa
+**commit/PR** depois. Trabalho paralelo (vários devs/agentes ao mesmo tempo) = **branch/worktree por sessão
++ um claim em `current_sessions/`** pra ninguém se atropelar (ver [`docs/parallel-sessions.md`](docs/parallel-sessions.md)).
+O contexto do projeto deixa de viver numa cabeça (ou na janela de um agente) e passa
 a viver no git, **versionado e visível pra todos**.
 
 ## Quickstart
@@ -119,8 +120,10 @@ Ver [`docs/tooling.md`](docs/tooling.md).
 | [`FRAMEWORK.md`](FRAMEWORK.md) | o ritual de sessão + DoR/DoD + git + taxonomia + convenções |
 | [`roadmap/status.md`](roadmap/status.md) | ★ status canônico (você preenche) |
 | [`roadmap/status-report-template.md`](roadmap/status-report-template.md) | molde do panorama visual |
+| [`current_sessions/`](current_sessions/) | estado **vivo** das sessões paralelas (claim por sessão) |
+| [`docs/parallel-sessions.md`](docs/parallel-sessions.md) | protocolo multi-agente/multi-dev + enforcement |
 | [`docs/`](docs/) | manual (getting-started, convenções, ritual, tooling) |
-| [`tools/`](tools/) | `report.sh` (panorama) · `lint-status.sh` (integridade) |
+| [`tools/`](tools/) | `report.sh` (panorama) · `lint-status.sh` (integridade) · `install-guard.sh` (hook main) |
 | `specs/ plans/ decisions/ audits/ product/` | memória estruturada (linkada pelo status) |
 
 ---
