@@ -16,6 +16,9 @@ Raiz de trabalho deste projeto. O agente roda daqui e enxerga tudo. **Topologia:
 - Todo trabalho amarrado a um **ID** do `paddock/roadmap/status.md`. Trabalho novo sem ID → criar a linha antes.
 - `status.md` enxuto: 1 linha por item; detalhe gordo no PR/spec linkado.
 - Evidência-ou-nada: ✅/🟡/🔵 sempre com link (PR/commit/ADR).
+- **Sessões paralelas:** antes de alterar repos, registrar a sessão em `paddock/current_sessions/<session-id>.md`
+  (1 arquivo por sessão) e ler o diretório pra ver o que outras sessões seguram. **Sem commit direto na `main`**
+  (branch + PR sempre); branch/worktree por sessão. Ver `paddock/docs/parallel-sessions.md`.
 
 > **Este arquivo = `AGENTS.md` na raiz do workspace** — lido por GitHub Copilot (CLI/agent via cwd),
 > Cursor, Codex e outros. Pra Claude Code, copie/aponte como `CLAUDE.md`. Pra instruções por-repo no

@@ -10,19 +10,25 @@ peso à fase do seu projeto.
 ## Ritual de sessão
 
 **Ao abrir (toda sessão que toca trabalho):**
-1. Ler `README.md` + `roadmap/status.md` pra saber o estado atual (o bloco "AGORA" no topo é o resumo).
-2. Identificar o(s) item(ns) por `ID` que a sessão vai tocar (ex.: `E1`, `H2.1`, `X-03`).
+1. Ler `README.md` + `roadmap/status.md` (o bloco "AGORA" no topo é o resumo) **+ `current_sessions/`**
+   (o que outras sessões estão fazendo agora — ver *Sessões paralelas* abaixo).
+2. Identificar o(s) item(ns) por `ID` que a sessão vai tocar (ex.: `E1`, `H2.1`, `X-03`) — só os
+   **não-reservados** por outra sessão ativa.
+3. Registrar a sessão: criar `current_sessions/<session-id>.md` (claim do que vai tocar) + abrir branch/worktree.
 
 **Durante:**
-- Todo trabalho fica amarrado a um `ID` do roadmap. Trabalho novo sem ID → criar o item no `status.md`
-  **antes** (ver convenção de IDs abaixo).
+- Todo trabalho fica amarrado a um `ID` do roadmap, numa **branch/worktree própria** (nunca direto na
+  `main`). Trabalho novo sem ID → criar o item no `status.md` **antes** (ver convenção de IDs abaixo).
+- Tarefa nova fora do session-file → `git pull` + reler `current_sessions/` + atualizar o próprio
+  session-file antes de avançar.
 
 **Ao fechar (quando mexeu em algo rastreado):**
-1. Atualizar a linha do item em `roadmap/status.md`: novo **status** + **evidência** (link de PR/commit/ADR)
-   + nota curta.
+1. PR da branch → `main` (checks verdes → merge). Atualizar a linha do item em `roadmap/status.md`: novo
+   **status** + **evidência** (link de PR/commit/ADR) + nota curta.
 2. Atualizar o bloco "AGORA" do topo se a prioridade mudou.
-3. Commit com mensagem curta referenciando o ID (ex.: `status: E1 ✅ deployado (#16)`).
+3. Commit/PR com mensagem curta referenciando o ID (ex.: `status: E1 ✅ deployado (#16)`).
 4. Débito técnico gerado → registrar na coluna nota (ou linkar pro seu rastreador de débito).
+5. Atualizar o session-file com o status final e **arquivá-lo** em `current_sessions/_archive/YYYY-MM/`.
 
 ## Taxonomia de status
 
@@ -106,12 +112,31 @@ Modelo **trunk-based**, não gitflow:
 - **PR pra entrar em `main`** (auto-revisão honesta conta em time solo). Squash-merge ≈ 1 unidade rastreável.
 - **Tag o ID no commit/PR de código** (`feat(api): ... [E1]`) → fecha a trilha roadmap↔código. (Sem isso o
   histórico vira não-rastreável — é o guardrail de rastreabilidade mais barato que existe.)
-- **Sessões paralelas (vários agentes/devs no mesmo repo):** uma **branch/worktree por sessão** pra não
-  atropelar edições — principalmente no `status.md`.
+- **Sem commit direto na `main`:** todo trabalho entra por **branch → PR**. Force isso por mecanismo —
+  branch protection no servidor (grátis em repo público; pago em privado) **ou** o git hook
+  `tools/install-guard.sh` (fallback local). Ver *Sessões paralelas* abaixo.
+- **Sessões paralelas (vários agentes/devs):** uma **branch/worktree por sessão** + claim em
+  `current_sessions/` (ver seção dedicada) — pra não atropelar edições, principalmente no `status.md`.
 - **Versão do produto (opcional):** quando publicar releases, use **semver + tag + CHANGELOG.md**. Não antes —
   pré-release não precisa de cerimônia de versão.
 
 Evite: gitflow completo (develop/release/hotfix), branches longos, merge sem PR. Trunk-based cobre 95% dos casos sem o peso.
+
+## Sessões paralelas (multi-agente / multi-dev)
+
+Quando N sessões (devs e/ou agentes de IA) trabalham juntas, o ritual single-thread não basta — o
+`status.md` vira ponto de colisão. Dois planos resolvem:
+
+- **`current_sessions/`** — estado **vivo**: **1 arquivo por sessão** ativa (dono único → zero colisão).
+  Quem faz o quê **agora**. Ver [`current_sessions/README.md`](current_sessions/README.md).
+- **`roadmap/status.md`** — registro **durável**: o que foi entregue + evidência. Escrito **1× no fechamento**
+  da sessão e **lido sempre junto** com `current_sessions/`.
+
+Regras: **worktree por sessão** (sem git destrutivo em clone compartilhado) · **1 branch → 1 PR**
+(auto-delete on merge) · registrar a sessão em `current_sessions/` **antes** de trabalhar · `main` só por PR
+(branch protection server-side onde der; senão o hook `tools/install-guard.sh`).
+
+Protocolo completo (lifecycle + enforcement): [`docs/parallel-sessions.md`](docs/parallel-sessions.md).
 
 ## Status report visual
 
