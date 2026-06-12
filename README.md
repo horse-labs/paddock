@@ -8,9 +8,9 @@
 
 <p align="center">
   <a href="https://github.com/horse-labs/paddock/actions/workflows/ci.yml"><img src="https://github.com/horse-labs/paddock/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/horse-labs/paddock?color=8B0F14" alt="License: Apache-2.0"></a>
-  <a href="https://github.com/horse-labs/paddock/releases"><img src="https://img.shields.io/github/v/release/horse-labs/paddock?color=8B0F14" alt="Release"></a>
-  <a href="https://github.com/horse-labs/paddock/generate"><img src="https://img.shields.io/badge/use%20this-template-8B0F14" alt="Use this template"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/horse-labs/paddock?color=3E8E5A" alt="License: Apache-2.0"></a>
+  <a href="https://github.com/horse-labs/paddock/releases"><img src="https://img.shields.io/github/v/release/horse-labs/paddock?color=3E8E5A" alt="Release"></a>
+  <a href="https://github.com/horse-labs/paddock/generate"><img src="https://img.shields.io/badge/use%20this-template-3E8E5A" alt="Use this template"></a>
   <a href="https://horse-labs.github.io/paddock/"><img src="https://img.shields.io/badge/docs-landing-0B0B0D" alt="Docs"></a>
   <img src="https://img.shields.io/badge/dependencies-zero-3E8E5A" alt="Zero dependencies">
 </p>
